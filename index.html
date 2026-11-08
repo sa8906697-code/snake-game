@@ -1,229 +1,125 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Neon Snake Pro</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LOOPLY - Share Your Vibe</title>
 <style>
 *{box-sizing:border-box}
-body{
- margin:0;min-height:100vh;display:flex;align-items:center;
- justify-content:center;padding:15px;color:white;font-family:Arial;
- background:linear-gradient(135deg,#090b24,#18234b,#30104b);
-}
-.game{
- width:100%;max-width:420px;text-align:center;padding:20px;
- background:#11152ddd;border:1px solid #654bff;border-radius:24px;
- box-shadow:0 0 35px #684aff66;
-}
-h1{color:#55f7d4;text-shadow:0 0 15px #55f7d4}
-.stats{display:flex;justify-content:space-around;gap:5px;margin:15px 0}
-.stat{background:#222b49;padding:10px;border-radius:12px;flex:1}
-.stat span{display:block;color:#ffdc69;font-size:20px;margin-top:5px}
-canvas{width:100%;max-width:360px;border:2px solid #55f7d4;
- border-radius:12px;background:#080d1c}
-button{
- border:0;border-radius:12px;padding:12px 18px;margin:5px;
- background:linear-gradient(90deg,#00d9b5,#655cff);
- color:white;font-size:17px;font-weight:bold;cursor:pointer;
-}
-.controls{display:grid;grid-template-columns:repeat(3,60px);
- justify-content:center;gap:5px;margin-top:12px}
-.controls button{margin:0}
-.hint{color:#b9c5e8;font-size:13px}
-#message{color:#ffdc69;font-weight:bold}
+body{margin:0;background:#090909;color:white;font-family:Arial,sans-serif}
+header{height:65px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;border-bottom:1px solid #252525;position:sticky;top:0;background:#090909;z-index:5}
+.logo{font-size:26px;font-weight:900;color:#ff3b78;letter-spacing:1px}
+header button,.nav button{background:none;border:0;color:white;font-size:20px;cursor:pointer}
+.tabs{display:flex;justify-content:center;gap:30px;padding:16px;border-bottom:1px solid #252525}
+.tabs span{color:#888;cursor:pointer}
+.tabs .active{color:white;border-bottom:3px solid #ff3b78;padding-bottom:8px}
+.feed{max-width:480px;margin:auto;padding:15px}
+.video{height:490px;border-radius:18px;margin-bottom:20px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(145deg,#31105d,#d62e72,#ff9b55)}
+.video:nth-child(2){background:linear-gradient(145deg,#063b50,#087d91,#42d6b0)}
+.video:nth-child(3){background:linear-gradient(145deg,#35114b,#8b247c,#e65b91)}
+.art{font-size:75px}
+.caption{position:absolute;bottom:18px;left:16px;text-align:left;right:75px;text-shadow:0 2px 5px #000}
+.caption h3{margin:0 0 8px}
+.caption p{font-size:14px}
+.actions{position:absolute;right:13px;bottom:30px;display:flex;flex-direction:column;gap:22px}
+.actions button{background:#1119;border:0;color:white;font-size:25px;cursor:pointer}
+.actions small{display:block;font-size:11px}
+.nav{position:fixed;bottom:0;left:0;right:0;background:#111;border-top:1px solid #333;display:flex;justify-content:space-around;padding:13px;z-index:5}
+.nav button{font-size:13px}
+.nav b{display:block;font-size:21px;margin-bottom:4px}
+footer{text-align:center;color:#777;padding:15px 0 85px;font-size:12px}
 </style>
 </head>
-
 <body>
-<div class="game">
-<h1>🐍 NEON SNAKE PRO</h1>
 
-<div class="stats">
- <div class="stat">Score<span id="score">0</span></div>
- <div class="stat">Best 🏆<span id="best">0</span></div>
- <div class="stat">Level<span id="level">1</span></div>
+<header>
+ <div class="logo">LOOPLY</div>
+ <button onclick="alert('Search is coming soon!')">⌕</button>
+ <button onclick="alert('Welcome to LOOPLY!')">♙</button>
+</header>
+
+<div class="tabs">
+ <span>Following</span>
+ <span class="active">For You</span>
+ <span>Trending</span>
 </div>
 
-<canvas id="board" width="360" height="360"></canvas>
+<main class="feed">
 
-<p>
- <button onclick="startGame()">▶ Restart</button>
- <button onclick="toggleSound()" id="soundBtn">🔊 Sound ON</button>
-</p>
+ <section class="video">
+  <div class="art">🌈✨</div>
+  <div class="caption">
+   <h3>@sana_official</h3>
+   <p>Welcome to LOOPLY! Share your vibe 💖</p>
+   <p>♪ Original sound</p>
+  </div>
+  <div class="actions">
+   <button onclick="like(this)">🤍<small>0</small></button>
+   <button onclick="comment()">💬<small>Comment</small></button>
+   <button onclick="share()">↗<small>Share</small></button>
+  </div>
+ </section>
 
-<div class="controls">
- <span></span><button onclick="change(0,-1)">⬆️</button><span></span>
- <button onclick="change(-1,0)">⬅️</button>
- <button onclick="change(0,1)">⬇️</button>
- <button onclick="change(1,0)">➡️</button>
-</div>
+ <section class="video">
+  <div class="art">🌊🏝️</div>
+  <div class="caption">
+   <h3>@cool_creator</h3>
+   <p>Enjoy the beautiful vibes! 🌊</p>
+   <p>♪ Summer vibes</p>
+  </div>
+  <div class="actions">
+   <button onclick="like(this)">🤍<small>0</small></button>
+   <button onclick="comment()">💬<small>Comment</small></button>
+   <button onclick="share()">↗<small>Share</small></button>
+  </div>
+ </section>
 
-<p class="hint">Arrow keys or WASD to play</p>
-<p id="message">Let's play! 🎮</p>
-</div>
+ <section class="video">
+  <div class="art">🎧🎵</div>
+  <div class="caption">
+   <h3>@music_world</h3>
+   <p>Music makes everything better 🎶</p>
+   <p>♪ Music time</p>
+  </div>
+  <div class="actions">
+   <button onclick="like(this)">🤍<small>0</small></button>
+   <button onclick="comment()">💬<small>Comment</small></button>
+   <button onclick="share()">↗<small>Share</small></button>
+  </div>
+ </section>
+
+</main>
+
+<footer>LOOPLY © 2026 · Created by Sana</footer>
+
+<nav class="nav">
+ <button onclick="home()"><b>⌂</b>Home</button>
+ <button onclick="alert('Video upload coming soon!')"><b>＋</b>Create</button>
+ <button onclick="alert('Notifications coming soon!')"><b>♡</b>Inbox</button>
+ <button onclick="alert('Profile coming soon!')"><b>♙</b>Profile</button>
+</nav>
 
 <script>
-const canvas=document.getElementById("board");
-const ctx=canvas.getContext("2d");
-const size=18,cells=20;
-
-let snake,food,dx,dy,score,level,timer,running;
-let soundOn=true;
-let best=Number(localStorage.getItem("snakeBest")||0);
-let audio;
-
-const themes=[
- ["#55f7d4","#16c9a5","#ff477e"],
- ["#ffcf5c","#ff8c42","#ff477e"],
- ["#c77dff","#8b5cf6","#55f7d4"],
- ["#ff78c8","#ff477e","#ffcf5c"],
- ["#70e1ff","#38bdf8","#c77dff"]
-];
-
-document.getElementById("best").textContent=best;
-
-function beep(freq,duration=0.1){
- if(!soundOn)return;
- try{
-  audio=audio||new(window.AudioContext||window.webkitAudioContext)();
-  if(audio.state==="suspended")audio.resume();
-  const osc=audio.createOscillator();
-  const gain=audio.createGain();
-  osc.connect(gain);
-  gain.connect(audio.destination);
-  osc.frequency.value=freq;
-  gain.gain.value=0.08;
-  osc.start();
-  gain.gain.exponentialRampToValueAtTime(0.001,audio.currentTime+duration);
-  osc.stop(audio.currentTime+duration);
- }catch(e){}
+function like(btn){
+ let count=btn.querySelector("small");
+ let liked=btn.dataset.liked==="yes";
+ btn.dataset.liked=liked?"no":"yes";
+ btn.firstChild.textContent=liked?"🤍":"❤️";
+ count.textContent=Number(count.textContent)+(liked?-1:1);
 }
-
-function toggleSound(){
- soundOn=!soundOn;
- document.getElementById("soundBtn").textContent=
- soundOn?"🔊 Sound ON":"🔇 Sound OFF";
+function comment(){
+ let text=prompt("Write your comment:");
+ if(text) alert("Comment preview: "+text);
 }
-
-function randomFood(){
- let p;
- do{
-  p={x:Math.floor(Math.random()*cells),y:Math.floor(Math.random()*cells)};
- }while(snake.some(s=>s.x===p.x&&s.y===p.y));
- return p;
-}
-
-function startGame(){
- clearInterval(timer);
- snake=[{x:10,y:10},{x:9,y:10},{x:8,y:10}];
- dx=1;dy=0;score=0;level=1;running=true;
- food=randomFood();
- updateStats();
- document.getElementById("message").textContent="Let's play! 🎮";
- draw();
- timer=setInterval(update,150);
-}
-
-function change(x,y){
- if(!running||(x===-dx&&y===-dy))return;
- dx=x;dy=y;
-}
-
-function updateStats(){
- document.getElementById("score").textContent=score;
- document.getElementById("best").textContent=best;
- document.getElementById("level").textContent=level;
-}
-
-function update(){
- const head={x:snake[0].x+dx,y:snake[0].y+dy};
- const eating=head.x===food.x&&head.y===food.y;
-
- if(head.x<0||head.y<0||head.x>=cells||head.y>=cells||
- snake.slice(0,eating?undefined:-1).some(
- s=>s.x===head.x&&s.y===head.y
- )){
-  running=false;
-  clearInterval(timer);
-  beep(150,0.35);
-  document.getElementById("message").textContent=
-  "💥 Game Over! Restart to play again.";
-  return;
- }
-
- snake.unshift(head);
-
- if(eating){
-  score+=10;
-  beep(650);
-  food=randomFood();
-
-  if(score>best){
-   best=score;
-   localStorage.setItem("snakeBest",best);
-  }
-
-  const newLevel=Math.floor(score/50)+1;
-  if(newLevel!==level){
-   level=newLevel;
-   clearInterval(timer);
-   timer=setInterval(update,Math.max(65,150-(level-1)*12));
-   document.getElementById("message").textContent=
-   "🌟 Level "+level+" unlocked!";
-   beep(900,0.2);
-  }
+function share(){
+ if(navigator.share){
+  navigator.share({title:"LOOPLY",text:"Check out LOOPLY!"});
  }else{
-  snake.pop();
+  alert("Share LOOPLY with your friends!");
  }
-
- updateStats();
- draw();
 }
-
-function draw(){
- const theme=themes[(level-1)%themes.length];
- ctx.fillStyle="#080d1c";
- ctx.fillRect(0,0,360,360);
-
- ctx.strokeStyle="#182642";
- for(let i=0;i<=360;i+=size){
-  ctx.beginPath();ctx.moveTo(i,0);ctx.lineTo(i,360);ctx.stroke();
-  ctx.beginPath();ctx.moveTo(0,i);ctx.lineTo(360,i);ctx.stroke();
- }
-
- ctx.fillStyle=theme[2];
- ctx.shadowColor=theme[2];
- ctx.shadowBlur=18;
- ctx.beginPath();
- ctx.arc(food.x*size+9,food.y*size+9,7,0,Math.PI*2);
- ctx.fill();
-
- snake.forEach((s,i)=>{
-  ctx.fillStyle=i===0?theme[0]:theme[1];
-  ctx.shadowColor=theme[0];
-  ctx.shadowBlur=12;
-  ctx.fillRect(s.x*size+2,s.y*size+2,size-4,size-4);
- });
-
- ctx.shadowBlur=0;
-}
-
-document.addEventListener("keydown",e=>{
- const keys={
- ArrowUp:[0,-1],w:[0,-1],W:[0,-1],
- ArrowDown:[0,1],s:[0,1],S:[0,1],
- ArrowLeft:[-1,0],a:[-1,0],A:[-1,0],
- ArrowRight:[1,0],d:[1,0],D:[1,0]
- };
- if(keys[e.key]){
-  e.preventDefault();
-  change(...keys[e.key]);
- }
-});
-
-startGame();
+function home(){window.scrollTo({top:0,behavior:"smooth"})}
 </script>
 </body>
 </html>
